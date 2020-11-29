@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AdminPanel_1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Orders</string>
+    <string name="title_notifications">Products</string>
+    <string name="title_store">Store</string>
+
+    <string name="article_column">Article</string>
+    <string name="product_title_column">Product title</string>
+    <string name="status_column">Status</string>
+</resources>
