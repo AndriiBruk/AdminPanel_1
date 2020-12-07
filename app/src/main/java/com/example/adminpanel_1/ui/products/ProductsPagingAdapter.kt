@@ -5,34 +5,71 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.adminpanel_1.R
 import com.example.adminpanel_1.api.catalogExport.Product
 import com.example.adminpanel_1.databinding.ProductViewItemBinding
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
 
-class ProductsPagingAdapter : PagingDataAdapter<Product, ProductsPagingAdapter.ProductsViewHolder>(DiffCallback) {
+class ProductsPagingAdapter :
+    PagingDataAdapter<Product, ProductsPagingAdapter.ProductsViewHolder>(DiffCallback) {
 
 
-    class ProductsViewHolder (private val binding: ProductViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product){
+    class ProductsViewHolder(private val binding: ProductViewItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(product: Product) {
             binding.apply {
                 articleOverview.text = product.article
-                productTitleOverview.text = product.title.ru
-                productStatusOverview.text = product.presence.value.ru
+                productTitleOverview.text = bindTitle(product)
+                productStatusOverview.text = bindStatus(product)
+
+                Glide.with(itemView)
+                    .load(bindPhoto(product))
+                    .error(R.drawable.ic_error)
+                    .into(productPhotoOverview)
+            }
+        }
+
+        private fun bindTitle(product: Product): String {
+            if (product.title.ru.isEmpty()) {
+                return product.mod_title.ru
+            }
+            return product.title.ru
+        }
+
+        private fun bindPhoto(product: Product): String {
+            if (product.images.isEmpty()) {
+                if (product.gallery_common.isEmpty()) {
+                    return ""
+                }
+                return product.gallery_common[0]
+            }
+
+            return product.images[0]
+        }
+
+        private fun bindStatus(product: Product):String?{
+            return try {
+                product.presence.value.ru
+            } catch (e: NullPointerException){
+                itemView.context.getString(R.string.status_not_choosen)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
-        val binding =ProductViewItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ProductViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val currentProduct = getItem(position)
-        if (currentProduct != null){
+        if (currentProduct != null) {
             holder.bind(currentProduct)
         }
     }
-
 
 
     object DiffCallback : DiffUtil.ItemCallback<Product>() {

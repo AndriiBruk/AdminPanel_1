@@ -7,35 +7,54 @@
     android:layout_width="match_parent">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
+        <ImageView
+            android:id="@+id/product_photo_overview"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
 
         <TextView
             android:id="@+id/article_overview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_toRightOf="@id/product_photo_overview"
+            android:layout_below="@id/product_title_overview"
+            android:layout_marginLeft="8dp"
             tools:text="article_123"
             android:text="@{property.article}"/>
 
         <TextView
             android:id="@+id/product_title_overview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_toRightOf="@id/product_photo_overview"
+            android:layout_marginLeft="8dp"
             tools:text="Product title"
             android:text="@{property.title.ru}"/>
 
         <TextView
-            android:id="@+id/product_status_overview"
-            android:layout_width="0dp"
+            android:id="@+id/devider"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_toRightOf="@id/article_overview"
+            android:layout_below="@id/product_title_overview"
+            android:layout_marginLeft="8dp"
+            android:text="•"/>
+
+        <TextView
+            android:id="@+id/product_status_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/devider"
+            android:layout_below="@id/product_title_overview"
+            android:layout_marginLeft="8dp"
             tools:text="in stock"
             android:text="@{property.presence.value.ru}"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

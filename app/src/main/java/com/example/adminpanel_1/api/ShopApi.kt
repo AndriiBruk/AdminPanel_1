@@ -2,7 +2,6 @@ package com.example.adminpanel_1.api
 
 import com.example.adminpanel_1.api.authorization.Auth
 import com.example.adminpanel_1.api.catalogExport.CatalogExport
-import kotlinx.coroutines.Deferred
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -21,8 +20,8 @@ interface ShopApi {
 
     @FormUrlEncoded
     @POST("/api/catalog/export")
-    fun getCatalogExport(
+    suspend fun getCatalogExport(
             @Field("token") token: String,
             @Field("offset") offset: Int,
-            @Field("limit") limit: Int): Deferred<CatalogExport>
+            @Field("limit") limit: Int): CatalogExport
 }

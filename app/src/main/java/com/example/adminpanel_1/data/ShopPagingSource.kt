@@ -1,10 +1,12 @@
 package com.example.adminpanel_1.data
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.example.adminpanel_1.api.ShopApi
 import com.example.adminpanel_1.api.catalogExport.Product
 import retrofit2.HttpException
 import java.io.IOException
+import kotlin.math.log
 
 
 class ShopPagingSource(
@@ -16,6 +18,7 @@ class ShopPagingSource(
 
         val position = params.key ?: 0
         val prductsOffset = position * params.loadSize
+
         return try {
             val response = shopApi.getCatalogExport(token, prductsOffset, params.loadSize).await().response
 

@@ -8,4 +8,5 @@
     <string name="article_column">Article</string>
     <string name="product_title_column">Product title</string>
     <string name="status_column">Status</string>
+    <string name="status_not_choosen">Status is not choosen</string>
 </resources>

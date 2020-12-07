@@ -19,7 +19,6 @@ object AppModule {
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
             .baseUrl(ShopApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
     @Provides

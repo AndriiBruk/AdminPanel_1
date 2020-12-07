@@ -1,12 +1,9 @@
 package com.example.adminpanel_1.data
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.example.adminpanel_1.api.ShopApi
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import javax.inject.Inject
 import javax.inject.Singleton
 
