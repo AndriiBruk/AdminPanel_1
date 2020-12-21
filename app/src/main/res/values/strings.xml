@@ -5,8 +5,16 @@
     <string name="title_notifications">Products</string>
     <string name="title_store">Store</string>
 
-    <string name="article_column">Article</string>
-    <string name="product_title_column">Product title</string>
-    <string name="status_column">Status</string>
+    <string name="retry">Retry</string>
+    <string name="timeout">Timeout</string>
+
+    <!-- Product overview screen -->
     <string name="status_not_choosen">Status is not choosen</string>
+
+    <!-- Product detail screen -->
+    <string-array name="spinner_currency">
+        <item>UAH</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
 </resources>

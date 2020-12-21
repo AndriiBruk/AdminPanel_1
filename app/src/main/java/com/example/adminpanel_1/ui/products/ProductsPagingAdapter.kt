@@ -12,12 +12,25 @@ import com.example.adminpanel_1.databinding.ProductViewItemBinding
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.coroutineContext
 
-class ProductsPagingAdapter :
+class ProductsPagingAdapter (private val listener: OnItemClickListener):
     PagingDataAdapter<Product, ProductsPagingAdapter.ProductsViewHolder>(DiffCallback) {
 
 
-    class ProductsViewHolder(private val binding: ProductViewItemBinding) :
+    inner class ProductsViewHolder(private val binding: ProductViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    val item = getItem(position)
+                    if (item != null){
+                        listener.onItemClick(item)
+                    }
+                }
+
+            }
+        }
         fun bind(product: Product) {
             binding.apply {
                 articleOverview.text = product.article
@@ -26,7 +39,7 @@ class ProductsPagingAdapter :
 
                 Glide.with(itemView)
                     .load(bindPhoto(product))
-                    .error(R.drawable.ic_error)
+                    .error(R.drawable.ic_empty_photo)
                     .into(productPhotoOverview)
             }
         }
@@ -56,6 +69,10 @@ class ProductsPagingAdapter :
                 itemView.context.getString(R.string.status_not_choosen)
             }
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(product: Product)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
