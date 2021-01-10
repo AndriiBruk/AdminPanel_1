@@ -3,7 +3,11 @@ package com.example.adminpanel_1.data
 import android.util.Log
 import androidx.paging.PagingSource
 import com.example.adminpanel_1.api.ShopApi
+import com.example.adminpanel_1.api.catalogExport.CatalogExport
+import com.example.adminpanel_1.api.catalogExport.CharacteristicsResponse
 import com.example.adminpanel_1.api.catalogExport.Product
+import com.example.adminpanel_1.api.catalogExport.Response
+import com.google.gson.GsonBuilder
 import retrofit2.HttpException
 import java.io.IOException
 import kotlin.math.log
@@ -56,9 +60,17 @@ class ShopPagingSource(
         position: Int
     ): LoadResult.Page<Int, Product> {
         val response =
-            shopApi.getCatalogExport(tokenFetcher.invoke(), prductsOffset, params.loadSize).response
+            shopApi.getCatalogExport(tokenFetcher.invoke(), prductsOffset, params.loadSize)
 
-        val products = response.products
+
+        val gson =GsonBuilder()
+        gson.registerTypeAdapter(
+            CharacteristicsResponse::class.java,
+            CharacteristicsDeserializer()
+        )
+        val responseCustom = gson.create().fromJson(response, CatalogExport::class.java).response
+
+        val products = responseCustom.products
 
         return LoadResult.Page(
             data = products,

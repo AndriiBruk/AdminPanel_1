@@ -16,11 +16,12 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_detail) {
 
         val binding = FragmentProductDetailBinding.bind(view)
 
-
-        val imageAdapter = ImageAdapter(args.product.images)
+        val product = args.product
+        val imageAdapter = ImageAdapter(product.images)
+        val characteristicsAdapter = CharacteristicAdapter(product.characteristics.characteristics)
+        val key = product.characteristics.characteristics.toString()
 
         binding.apply {
-            val product = args.product
 
             cardTitle.text = product.title.ru
 
@@ -29,6 +30,9 @@ class ProductDetailsFragment : Fragment(R.layout.fragment_product_detail) {
             article.setText(product.article)
             price.setText(product.price.toString())
             oldPrice.setText(product.price_old.toString())
+
+            characteristic.setText(" $key")
+            characteristicsList.adapter = characteristicsAdapter
 
         }
 
